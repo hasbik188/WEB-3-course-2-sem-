@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+<link rel="stylesheet" href="/2task(Calculator)/style.css">
+</head>
+<body>
+    <div class="content">
+        <div class="task">
+            <img src="/2task(Calculator)/romb.png">
+
+            <div class="form_choose">
+                <ul type="none" class="form_choose" id="form_list">
+                    <li>
+                        <label><input type="radio" name="form" id="choose_diagonals"/>По диагоналям</label>
+                    </li>
+                    <li>
+                        <label><input type="radio" name="form" id="choose_angle"/>По стороне и углу</label>
+                    </li>
+                </ul>
+                <button id="show" onClick="ShowInputForm()">Показать</button>
+            </div>
+
+            <div class="input_diagonali">
+                <form>
+                    <p>
+                        <label>d1 =
+                            <input type="number" id="input1" min=0 max=200>
+                        </label>
+                    </p>
+                    <p>
+                        <label>d2 =
+                            <input type="number" id="input2" min=0 max=200>
+                        </label>
+                    </p>
+                </form>
+            </div>
+
+            <div class="input_angle">
+                <form>
+                    <p>
+                        <label>a =
+                            <input type="number" id="input3" min=0 max=200>
+                        </label>
+                    </p>
+                    <p>
+                        <label>u =
+                            <input type="number" id="input4" min=0 max=179>
+                        </label>
+                    </p>
+                </form>
+            </div>
+
+            <div class="question">
+                <p>
+                    <br><div>Найти:</div>
+                    <br><label><input type="checkbox" id="task1"> периметр</label>
+                    <br><label><input type="checkbox" id="task2"> площадь</label>
+                    <br><label><input type="checkbox" id="task3"> высота</label>
+                </p>
+            </div>
+
+            <div class="buttons">
+                <p>
+                    <input type="button" id="compute_button" value="Вычислить" onClick="Compute_Result()">
+                    <input type="button" value="Очистить" onClick="Clear_All()">
+                </p>
+            </div>
+
+            <div id="output"></div>
+        </div>
+    </div>
+    <script src="/2task(Calculator)/script.js"></script>
+</body>
+</html>

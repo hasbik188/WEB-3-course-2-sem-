@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    width: auto;
+    justify-content: center;
+}
+.input_diagonali, .input_angle {
+    display: none;
+}
+input {
+    width: 5rem;
+}
+textarea {
+    width: 70vw;
+    height: 200px;
+}
+
+.error {
+    color: red;
+}
+.error-input {
+    border: 1px solid red;
+}
+
+.error-button {
+    border: 1px solid red;
+}
+
+.error-text {
+    color: red;
+}
