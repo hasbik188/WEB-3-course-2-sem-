@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/2task(Calculator)/3.3/css/table.css" />
+    <script src="http://d3js.org/d3.v7.min.js"> </script>
+  </head>
+  <body>
+    <div class="header">
+      <form action="action" method="get">
+        <input name="s" placeholder="Ваш город..." type="search" />
+        <button type="submit">Поиск</button>
+      </form>
+    </div>
+    <div class="menu">
+      <div class="menu-name">Погода в России</div>
+      <div class="menu-block">
+        <div class="menu-block-item"><a
+            href="/2task(Calculator)/3.3/html/main.html">Главная</a></div>
+        <div class="menu-block-item"><a
+            href="/2task(Calculator)/3.3/html/news.html">Новости</a></div>
+        <div class="menu-block-item"><a
+            href="/2task(Calculator)/3.3/html/table.html">Таблица</a></div>
+      </div>
+    </div>
+    <!-- <div class="content-graph">
+      <details>
+        <summary>График</summary>
+        <form id="graph_form">
+          <div class="content__graph">
+            <div class="text">Значение OX:</div>
+            <div>
+              <input type="radio" name="ox" value="Влажность" checked>Влажность<br>
+              <input type="radio" name="ox" value="Осадки">Осадки<br>
+            </div>
+          </div>
+          <div class="container">
+            <div class="text">Значение OY:</div>
+            <div class="result">
+              <input type="checkbox" name="oy" checked>Максимальная температура<br>
+              <input type="checkbox" name="oy">Минимальная температура<br>
+              <input type="checkbox" name="oy">Максимальное атмосферное давление<br>
+              <input type="checkbox" name="oy">Минимальное атмосферное давление<br> 
+              <div class="text">Тип диаграммы:</div>
+              <div>
+                  <input type="radio" name="chartType" value="dot" checked>Точечная<br>
+                  <input type="radio" name="chartType" value="bar">Столбчатая<br>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <input type="button" value="Построить" />
+            <input type="reset" value="Сбросить настройки" />
+          </div>
+        </form>
+        <svg height=10> </svg>
+      </details>
+    </div> -->
+    <div class="content-filter">
+      <details>
+        <summary>Фильтр</summary>
+        <form id="filterForm">
+          <div class="content__filter__block">
+            <label for="cityLetter">Город:</label>
+            <input type="text" id="cityLetter" maxlength="1" />
+          </div>
+          <div class="content__filter__block">
+            <label for="TempFrom">Температура, °C</label>
+            <input type="number" id="TempFrom" name="temperature_min"
+              placeholder="от" min="-18" max="19" />
+            <input type="number" id="TempTo" name="temperature_max"
+              placeholder="до" min="-18" max="19" />
+          </div>
+          <div class="content__filter__block">
+            <label for="HumFrom">Влажность, %</label>
+            <input type="number" id="HumFrom" name="humidity_min"
+              placeholder="от" min="0" max="100" />
+            <input type="number" id="HumTo" name="humidity_max" placeholder="до"
+              min="0" max="100" />
+          </div>
+          <div class="content__filter__block">
+            <label for="PresFrom">Атмосферное давление</label>
+            <input type="number" id="PresFrom" name="pressure_min"
+              placeholder="от" min="700" max="763" />
+            <input type="number" id="PresTo" name="pressure_max"
+              placeholder="до" min="700" max="763" />
+          </div>
+          <div class="content__filter__block">
+            <label for="precipitation">Осадки</label>
+            <select id="precipitation" name="precipitation">
+              <option type="number"></option>
+              <option type="number">1</option>
+              <option type="number">2</option>
+              <option type="number">3</option>
+              <option type="number">4</option>
+              <option type="number">5</option>
+              <option type="number">6</option>
+              <option type="number">7</option>
+              <option type="number">8</option>
+              <option type="number">9</option>
+            </select>
+          </div>
+          <div class="content__filter__block">
+            <input type="button" value="Найти" id="searchFilter" />
+            <input type="reset" value="Сбросить фильтр" id="clearFilter" />
+          </div>
+        </form>
+      </details>
+    </div>
+    <div class="content-sort">
+      <details>
+        <summary>Сортировка</summary>
+        <form id="sortForm">
+          <div class="content_sort_block">
+            <div class="text">Первый уровень:</div>
+            <select id="firstLevelSort"></select>
+            по убыванию? <input type="checkbox" id="fields1Desc">
+          </div>
+          <div class="content_sort_block">
+            <div class="text">Второй уровень:</div>
+            <select id="secondLevelSort" disabled></select>
+            по убыванию? <input type="checkbox" id="fields2Desc">
+          </div>
+          <div class="content_sort_block">
+            <div class="text">Третий уровень:</div>
+            <select id="thirdLevelSort" disabled></select>
+            по убыванию? <input type="checkbox" id="fields3Desc">
+          </div>
+          <input type="button" value="Сортировать" id="sortButton" />
+          <input type="button" value="Сбросить настройки" id="clearSort" />
+        </form>
+      </details>
+    </div>
+    <div class="content-tab">
+      <table id="list"></table>
+    </div>
+    <div class="footer">
+      <div class="fio">© Ваяй М.С., Б9121-09.03.04, 2023-2024</div>
+      <div class="contacts">✉ Контакты</div>
+    </div>
+  </body>
+
+
+  <script src="/2task(Calculator)/3.3/scripts/program.js"></script>
+  <script src="/2task(Calculator)/3.3/scripts/data.js"></script>
+
+</html>
