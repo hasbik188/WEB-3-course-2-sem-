@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/2task(Calculator)/3.3/css/table.css" />
+    <script src="http://d3js.org/d3.v7.min.js"> </script>
+</head>
+<body>
+    <div class="header">
+        <form action="action" method="get">
+            <input name="s" placeholder="Ваш город..." type="search" />
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+    <div class="menu">
+        <div class="menu-name">Погода в России</div>
+        <div class="menu-block">
+            <div class="menu-block-item"><a href="#">Главная</a></div>
+            <div class="menu-block-item"><a href="#">Новости</a></div>
+            <div class="menu-block-item"><a href="#">Таблица</a></div>
+        </div>
+    </div>
+    <div class="content-graph">
+        <details>
+            <summary>График</summary>
+            <form id="graph_form">
+                <div class="content__graph">
+                    <div class="text">Значение OX:</div>
+                    <div>
+                        <input type="radio" name="ox" value="Город" checked>Город<br>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="text">Значение OY:</div>
+                    <div class="result">
+                        <input type="checkbox" name="oy" value="Атмосферное давление" checked>Атмосферное давление<br>
+                        <input type="checkbox" name="oy" value="Осадки">Осадки<br>
+                    </div>
+
+                    <div class="text">Тип диаграммы:</div>
+                    <div>
+                        <input type="radio" name="chartType" value="dot" checked>Точечная<br>
+                    </div>
+                </div>
+                <div class="container">
+                    <input type="button" value="Построить" onclick="drawGraph(this.form)">
+                </div>
+            </form>
+            <svg height=10></svg>
+        </details>
+    </div>
+    <div class="content-tab">
+        <table id="list"></table>
+    </div>
+    <div class="footer">
+        <div class="fio">© Ваяй М.С., Б9121-09.03.04, 2023-2024</div>
+        <div class="contacts">✉ Контакты</div>
+    </div>
+    <script src="program.js"></script>
+    <script src="data.js"></script>
+</body>
+</html>

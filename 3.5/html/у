@@ -1,0 +1,162 @@
+let createTable = (data, idTable) => {
+    let table = document.getElementById(idTable);
+    var tr = document.createElement("tr");
+  
+    for (key in data[0]) {
+      let th = document.createElement("th");
+      th.innerHTML = key;
+      tr.append(th);
+    }
+    table.append(tr);
+  
+    data.forEach((item) => {
+      tr = document.createElement("tr");
+  
+      for (value in item) {
+        let td = document.createElement("td");
+        td.innerHTML = item[value];
+        tr.append(td);
+      }
+  
+      table.append(tr);
+    });
+  };
+document.addEventListener("DOMContentLoaded", function () {
+  createTable(Tree_Array, "list");
+
+});
+
+
+function What_is(data){
+  if(data.oy[0].checked ) return 0
+  if(data.oy[1].checked ) return 0
+  if(data.oy[2].checked ) return 1
+  if(data.oy[3].checked ) return 1
+  if(data.oy[4].checked ) return 2
+  if(data.oy[5].checked ) return 2
+
+}
+
+
+function createArrGraph(data, key,number) {
+  let what = number==0?'price':number==1?'ndvi':'age'
+  groupObj = d3.group(data, (d) => d[key]);
+  
+  return Array.from(groupObj, ([labelX, values]) => ({
+    labelX,
+    values: d3.extent(values, d => d[what])
+    
+  })); 
+}
+
+const marginX = 100;
+const marginY = 70;
+const height = 1000;
+const width = 2000;
+let svg = d3.select("svg").attr("height", height).attr("width", width);
+
+function drawGraph(data) {
+
+  // значения по оси ОХ
+  const keyX = data.ox.value;
+  
+  // значения по оси ОУ
+  const number = What_is(data)
+  const isMin = data.oy[0].checked || data.oy[3].checked || data.oy[4].checked
+  const isMax = data.oy[1].checked || data.oy[2].checked || data.oy[5].checked
+
+  if (!isMin && !isMax) 
+    alert("OY выбери дэбил");
+  else {
+    // создаем массив для построения графика
+    const arrGraph = createArrGraph(Tree_Array, keyX,number);
+
+    svg.selectAll("*").remove();
+    // создаем шкалы преобразования и выводим оси
+    const [scX, scY]  = createAxis(arrGraph, isMin, isMax);
+    // рисуем графики
+    
+    if (isMax) {
+      // alert('fweomfwe')
+      createChart(arrGraph, scX, scY, 1, "red");
+    }
+    if (isMin) {
+      createChart(arrGraph, scX, scY, 0, "blue");
+    }
+  }
+}
+
+function createAxis(data, isFirst, isSecond) {
+  // в зависимости от выбранных пользователем данных по OY
+  // находим интервал значений по оси OY
+
+  let firstRange = d3.extent(data.map((d) => d.values[0]));
+  let secondRange = d3.extent(data.map((d) => d.values[1]));
+  // alert(secondRange)
+  let min = firstRange[0];
+  let max = secondRange[1];
+
+  if (!isFirst && isSecond) {
+    min = secondRange[0];
+    max = secondRange[1];
+  } else if (isFirst && !isSecond) {
+    min = firstRange[0];
+    max = firstRange[1];
+    // alert(`${min}, ${max}`)
+  }
+  // функция интерполяции значений на оси
+  let scaleX = d3
+    .scaleBand()
+    .domain(data.map((d) => d.labelX))
+    .range([0, width - 2 * marginX]);
+  let scaleY = d3
+    .scaleLinear()
+    .domain([min * 0.85, max * 1.1])
+    .range([height - 2 * marginY, 0]);
+  // создание осей
+  let axisX = d3.axisBottom(scaleX);
+  // горизонтальная
+  let axisY = d3.axisLeft(scaleY);
+  // вертикальная
+  // отрисовка осей в SVG-элементе
+  svg
+    .append("g")
+    .attr("transform", `translate(${marginX}, ${height - marginY})`)
+    .call(axisX)
+    .selectAll("text")
+    // подписи на оси - наклонные
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", (d) => "rotate(-45)");
+  svg
+    .append("g")
+
+    .attr("transform", `translate(${marginX}, ${marginY})`)
+    .call(axisY);
+  return [scaleX, scaleY];
+}
+
+function createChart(data, scaleX, scaleY, index, color) {
+  const r = 4;
+
+    svg.selectAll(".dot").data(data).enter().append("rect").attr("class", "rect")
+
+        .attr("x", d => scaleX(d.labelX))
+        .attr("y", d => scaleY(d.values[index])-marginY)
+
+        .attr("width", scaleX.bandwidth()-5)
+        .attr("height", d => height - scaleY(d.values[index]) - marginY)
+
+        .attr("transform", `translate(${marginX}, ${marginY})`)
+        .style("fill", color);
+}
+
+
+function changeState(form, value){
+
+  for(let i=0;i<6;++i){
+    
+    if(!form.oy[i].value.includes(value)) form.oy[i].checked=false
+  }
+}
